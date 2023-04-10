@@ -39,8 +39,12 @@ else
 fi
 
 number="$(git rev-list "$last_version_ref"..HEAD --count)"
-prerelease="dev.$number.$(date +%s)"
 build="$(git rev-parse --short @)"
+
+# add dirty marker if not built from a clean working tree
+if [ -n "$(git status --porcelain)" ] ; then
+  build="$build-dirty"
+fi
 
 if ! [ "$current_branch" = $main_branch ]; then
   build="$build.$(echo "$current_branch" | tr '/' '-')"
@@ -50,8 +54,9 @@ if ! [ "$current_branch" = $main_branch ]; then
   # branch
   merge_base="$(git merge-base $main_branch HEAD)"
   number="$(git rev-list "$last_version_ref".."$merge_base" --count)"
-  prerelease="dev.$number.$(date +%s)"
 fi
+
+prerelease="dev.$number.$(date +%s)"
 
 # Unfortunately, image tags can't contain the + character, which means we can't use the build meta from the semver spec
 # (https://semver.org/#spec-item-10). Hence, we append the build meta as another prerelease identifier
