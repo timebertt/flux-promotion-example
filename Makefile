@@ -21,7 +21,7 @@ kind-down: $(KIND)
 # APP
 # =============
 
-export GIT_REPO ?= github.com/timebertt/flux-promotion-example
+export GIT_REPO ?= https://github.com/timebertt/flux-promotion-example
 export KO_DOCKER_REPO ?= ghcr.io/timebertt/flux-promotion-example
 export ARTIFACT_REPO ?= ghcr.io/timebertt/manifests/flux-promotion-example
 
