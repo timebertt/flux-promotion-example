@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: app
+spec:
+  interval: 1m
+  url: oci://ghcr.io/timebertt/manifests/flux-promotion-example/app
+  ref:
+    semver: ">= v0.1.0"

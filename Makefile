@@ -32,3 +32,13 @@ export PUSH ?= false
 
 build: $(FLUX) $(KO) $(KUSTOMIZE)
 	./hack/build.sh
+
+# =============
+# Flux
+# =============
+
+flux-bootstrap: $(FLUX)
+	flux check --pre
+	flux install --components-extra="image-reflector-controller,image-automation-controller"
+	flux create source git flux-system --url $(GIT_REPO) --branch master --interval 1m
+	flux create kustomization flux-system --source flux-system --path ./clusters/kind --prune --interval 10m

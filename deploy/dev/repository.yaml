@@ -1,0 +1,9 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: app
+spec:
+  ref:
+    # deploy all prerelease versions, i.e. every commit to the main branch and all explicitly pushed artifacts
+    semver: ">= v0.0.0-0"

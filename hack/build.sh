@@ -24,8 +24,7 @@ image_ref_app="$(ko build \
 
 # prepare artifact build in a temporary directory
 tmp=$(mktemp -d)
-echo "$tmp"
-cd "$tmp"
+pushd "$tmp"
 cp -r "$repo_root"/app/manifests .
 
 # inject freshly-built image reference into the manifests

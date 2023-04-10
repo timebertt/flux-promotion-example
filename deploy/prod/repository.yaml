@@ -1,0 +1,9 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: app
+spec:
+  ref:
+    # deploy the latest patch release of a specific version
+    semver: "v0.1.x"
