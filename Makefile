@@ -30,5 +30,5 @@ export KO_DOCKER_REPO ?= ghcr.io/timebertt/flux-promotion-example
 export ARTIFACT_REPO ?= ghcr.io/timebertt/manifests/flux-promotion-example
 export PUSH ?= false
 
-build: $(KO) $(KUSTOMIZE)
+build: $(FLUX) $(KO) $(KUSTOMIZE)
 	./hack/build.sh

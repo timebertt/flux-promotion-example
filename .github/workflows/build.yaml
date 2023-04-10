@@ -1,0 +1,29 @@
+name: build
+
+on:
+  push:
+    branches:
+    - 'master'
+    - 'release-*'
+    tags:
+    - '*'
+
+permissions:
+  packages: write # needed for ghcr access
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: 1.20.x
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - run: make build PUSH=true
