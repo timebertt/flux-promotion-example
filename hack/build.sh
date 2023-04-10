@@ -25,20 +25,21 @@ image_ref_app="$(ko build \
 # prepare artifact build in a temporary directory
 tmp=$(mktemp -d)
 pushd "$tmp"
+mkdir ./manifests
 cp -r "$repo_root"/app/manifests .
 
 # inject freshly-built image reference into the manifests
-pushd manifests >/dev/null
+pushd ./manifests >/dev/null
 kustomize edit set image hello="$image_ref_app"
 popd >/dev/null
 
 # push artifacts to registry
 if ! $PUSH; then
-  echo "skip pushing manifest artifacts in dry-run mode"
+  flux build artifact --path=. \
+    --output "$tmp"/artifact.tgz
   exit 0
 fi
 
-flux push artifact oci://"$ARTIFACT_REPO"/app:"$TAG" \
-  --path=./manifests \
-  --source="$GIT_REPO" \
-  --revision="$revision"
+flux push artifact --path=. \
+  --source="$GIT_REPO" --revision="$revision" \
+  oci://"$ARTIFACT_REPO"/app:"$TAG"
