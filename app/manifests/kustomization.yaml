@@ -7,3 +7,15 @@ resources:
 images:
 - name: hello
   newName: ghcr.io/timebertt/flux-promotion-example/app
+
+replacements:
+- source:
+    kind: Deployment
+    name: hello
+    fieldPath: spec.template.spec.containers.[name=hello].image
+  targets:
+  - select:
+      kind: Deployment
+      name: hello
+    fieldPaths:
+    - spec.template.spec.containers.[name=hello].env.[name=APP_IMAGE].value

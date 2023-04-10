@@ -20,15 +20,14 @@ kind-down: $(KIND)
 # =============
 # APP
 # =============
+export TAG ?= $(shell ./hack/get-semver-tag.sh)
+
+run:
+	APP_VERSION=$(TAG) go run ./app
 
 export GIT_REPO ?= https://github.com/timebertt/flux-promotion-example
 export KO_DOCKER_REPO ?= ghcr.io/timebertt/flux-promotion-example
 export ARTIFACT_REPO ?= ghcr.io/timebertt/manifests/flux-promotion-example
-
-run:
-	APP_ENV=local go run ./app
-
-export TAG ?= $(shell ./hack/get-semver-tag.sh)
 export PUSH ?= false
 
 build: $(KO) $(KUSTOMIZE)
