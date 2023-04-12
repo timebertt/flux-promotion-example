@@ -1,8 +1,7 @@
----
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
   name: app
 spec:
   ref:
-    semver: v0.1.0 # {"$imagepolicy": "dev:app:tag"}
+    semver: v0.2.0-dev.2.1681307844.1b668bc # {"$imagepolicy": "dev:app:tag"}
