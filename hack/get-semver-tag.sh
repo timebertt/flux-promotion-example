@@ -42,11 +42,11 @@ number="$(git rev-list "$last_version_ref"..HEAD --count)"
 build="$(git rev-parse --short @)"
 
 # add dirty marker if not built from a clean working tree
-if [ -n "$(git status --porcelain)" ] ; then
+if [ -n "$(git status --porcelain)" ]; then
   build="$build-dirty"
 fi
 
-if ! [ "$current_branch" = $main_branch ]; then
+if ! [ "$current_branch" = $main_branch ] && ! [[ "$current_branch" == release-* ]]; then
   build="$build.$(echo "$current_branch" | tr '/' '-')"
 
   # if we're on a development branch, the last pushed images and artifacts should automatically be rolled out
