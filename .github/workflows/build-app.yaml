@@ -2,11 +2,13 @@ name: build
 
 on:
   push:
+    tags:
+    - '*'
     branches:
     - 'master'
     - 'release-*'
-    tags:
-    - '*'
+    paths:
+    - 'app/**'
 
 permissions:
   packages: write # needed for ghcr access
