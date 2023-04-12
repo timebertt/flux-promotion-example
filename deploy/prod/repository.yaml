@@ -5,5 +5,4 @@ metadata:
   name: app
 spec:
   ref:
-    # deploy the latest patch release of a specific version
-    semver: "v0.1.x"
+    semver: v0.1.0

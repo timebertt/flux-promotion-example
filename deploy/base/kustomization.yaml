@@ -6,3 +6,5 @@ namespace: flux-system
 resources:
 - repository.yaml
 - app.yaml
+- image-repository.yaml
+- image-policy.yaml

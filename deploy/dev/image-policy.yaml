@@ -1,0 +1,9 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: app
+spec:
+  policy:
+    semver:
+      # deploy all prerelease versions, i.e. every commit to the main branch and all explicitly pushed artifacts
+      range: ">= v0.0.0-0"

@@ -5,5 +5,4 @@ metadata:
   name: app
 spec:
   ref:
-    # deploy all tagged versions
-    semver: ">= v0.1.0"
+    semver: v0.1.0
