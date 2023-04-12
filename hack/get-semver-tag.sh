@@ -17,7 +17,7 @@ if command git show-ref -q --verify refs/heads/main >/dev/null; then
 fi
 
 if last_version="$(git describe --tags --abbrev=0 2>/dev/null)"; then
-  last_version_ref="$last_version_ref"
+  last_version_ref="$last_version"
 else
   # there is no tag yet
   last_version=v0.0.0
