@@ -8,3 +8,4 @@ resources:
 - app.yaml
 - image-repository.yaml
 - image-policy.yaml
+- image-updates.yaml

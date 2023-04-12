@@ -4,12 +4,26 @@ This repository features an example for continuously deploying an application us
 
 ## Run Example on a Local Cluster
 
+### Basic Setup
+
 Start a [kind](https://kind.sigs.k8s.io) cluster, install flux and connect it to this repository:
 
 ```bash
 make kind-up
 export KUBECONFIG=$PWD/kind-kubeconfig.yaml
 make flux-bootstrap
+```
+
+### Optional: Read-Write Deploy Key
+
+Testing the upgrade automation requires an ssh deploy key with read-write access.
+Create an ssh key secret with flux and add it to the repository:
+
+```
+flux create secret git flux-system --url ssh://git@github.com/timebertt/flux-promotion-example
+✚ deploy key: ecdsa-sha2-nistp384 AAAA...
+
+► git secret 'flux-system' created in 'flux-system' namespace
 ```
 
 ## Repository Structure

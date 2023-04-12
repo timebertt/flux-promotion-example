@@ -1,0 +1,25 @@
+on:
+  push:
+    branches:
+    - 'upgrade-test-**'
+
+permissions:
+  pull-requests: write
+
+jobs:
+  pull-request:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Prepare PR Metadata
+      id: meta
+      run: |
+        head_message="$(git log --oneline --format=%B -n 1 ${{ github.event.head_commit.id }} | head -n 1)"
+        echo "pr_title=$head_message" >> $GITHUB_OUTPUT
+    - name: pull-request
+      uses: repo-sync/pull-request@v2
+      with:
+        destination_branch: master
+        pr_title: ${{ steps.meta.outputs.pr_title }}
+        pr_body: ${{ github.event.head_commit.message }}
+        pr_label: auto-upgrade

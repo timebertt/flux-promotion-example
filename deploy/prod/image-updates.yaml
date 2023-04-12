@@ -1,0 +1,7 @@
+# don't deploy image update automation for prod (not implemented yet)
+# TODO: implement this
+$patch: delete
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: app

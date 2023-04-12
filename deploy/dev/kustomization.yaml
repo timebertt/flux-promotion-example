@@ -5,9 +5,9 @@ namespace: dev
 
 resources:
 - ../base
-- image-updates.yaml
 
 patches:
 - path: repository.yaml
 - path: app.yaml
 - path: image-policy.yaml
+- path: image-updates.yaml

@@ -1,0 +1,13 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: app
+spec:
+  git:
+    push:
+      # push to an upgrade branch to open a PR for approval
+      # GitHub Action will automatically open a PR against master for branches named upgrade-test-*
+      branch: upgrade-test-app
+  update:
+    path: ./deploy/test
+    strategy: Setters

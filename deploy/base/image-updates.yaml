@@ -1,0 +1,33 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: app
+spec:
+  interval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system-authenticated
+    namespace: flux-system
+  git:
+    checkout:
+      ref:
+        branch: master
+    commit:
+      author:
+        email: fluxcd@users.noreply.github.com
+        name: fluxcd
+      messageTemplate: |
+        [{{ .AutomationObject.Namespace }}] Upgrade {{ .AutomationObject.Name }}
+
+        Updated objects:
+        {{ range $filename, $file := .Updated.Files -}}
+        {{ range $resource, $_ := $file.Objects -}}
+        - {{ $filename }}: {{ $resource.Kind }} {{ $resource.Name }}
+        {{ end -}}
+        {{ end -}}
+    push:
+      branch: nirvana
+  update:
+    path: ./deploy/base
+    strategy: Setters
